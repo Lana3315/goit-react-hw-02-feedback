@@ -1,7 +1,9 @@
 import React, { Component } from "react";
-// import Section from './Section/Section'
+import Section from './Section/Section'
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions'
 import Statistics from './Statistics/Statistics'
+import  Notification  from './Notification/Notification';
+
 
 
 
@@ -39,15 +41,16 @@ class App extends Component {
 
     return (
       <>
-        {/* <Section /> */}
+       <Section title="Please leave feedback">
         <FeedbackOptions
           onHandleGood={this.handleClickGood}
           onHandleNeutral={this.handleClickNeutral}
           onHandleBad ={this.handleClickBad}
 
         />
-        
-
+         </Section>
+           <Section title="Statistics">
+            {totalFeedBack ? (
             <Statistics
               good={good}
               neutral={neutral}
@@ -55,7 +58,10 @@ class App extends Component {
               total={totalFeedBack}
               positivePercentage={positivePercentage}
             />
-         
+          ) : (
+            <Notification message="There is no feedback" />
+          )}
+          </Section>
       </>
     );
   }
