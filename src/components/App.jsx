@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Section from './Section/Section'
 import FeedbackOptions from './FeedbackOptions/FeedbackOptions'
 import Statistics from './Statistics/Statistics'
-import  Notification  from './Notification/Notification';
+import Notification  from './Notification/Notification';
 
 
 
@@ -13,14 +13,11 @@ class App extends Component {
   neutral: 0,
   bad: 0
 }
- handleClickGood = () => 
-    this.setState((prevState) => ({good: prevState.good + 1,})) 
-  
-   handleClickNeutral = () => 
-    this.setState((prevState) => ({neutral: prevState.neutral + 1,}))  
-  
-   handleClickBad = () => 
-    this.setState((prevState) => ({bad: prevState.bad+ 1,}))  
+ leaveFeedback = ({ target: { name } }) => {
+    this.setState(prevState => ({
+      [name]: prevState[name] + 1,
+    }));
+  };
   
   countTotalFeedBack = () => {
     return Object.values(this.state).reduce((total, curr) => (total + curr))
@@ -43,9 +40,8 @@ class App extends Component {
       <>
        <Section title="Please leave feedback">
         <FeedbackOptions
-          onHandleGood={this.handleClickGood}
-          onHandleNeutral={this.handleClickNeutral}
-          onHandleBad ={this.handleClickBad}
+           options={Object.keys(this.state)}
+            leaveFeedback={this.leaveFeedback}
 
         />
          </Section>
